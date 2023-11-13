@@ -1,0 +1,99 @@
+Exercício 01:
+
+_______________________________________________
+Exercício 02:
+use hr_join;
+select first_name, last_name, department_name
+from employees
+inner join departments
+on employees.department_id = departments.department_id;
+________________________________________________
+Exercício 03:
+select first_name, last_name
+from employees
+where manager_id is null;
+_______________________________________________
+Exercício 04:
+select first_name, last_name, department_name
+from employees
+inner join departments
+on employees.department_id = departments.department_id
+where employees.manager_id is null;
+_______________________________________________
+Exercício 05:
+select employees.first_name, employees.last_name
+from employees
+inner join (select job_history.employee_id, jobs.job_id
+	from job_history
+	inner join jobs
+	on job_history.job_id = jobs.job_id) as emplo_job
+on employees.employee_id = emplo_job.employee_id;
+________________________________________________
+Exercício 06:
+select departments.department_name,employees.first_name
+from employees
+inner join departments
+on departments.manager_id = employees.manager_id;
+_________________________________________________
+Exercício 07:
+select departments.department_name
+from departments
+where departments.manager_id is null;
+_________________________________________________
+Exercício 08:
+select first_name,last_name
+from employees
+where salary >=5.00 and salary <=10.00;
+________________________________________________
+Exercício 09:
+select department_locations.department_name,employees.first_name,employees.last_name,
+department_locations.street_address,department_locations.postal_code,department_locations.city,
+department_locations.state_province,department_locations.country_id
+from employees
+inner join (select departments.department_name, departments.manager_id,
+locations.street_address,locations.postal_code,locations.city,
+locations.state_province,locations.country_id
+from departments
+inner join locations
+on departments.location_id = locations.location_id) as department_locations
+on employees.manager_id = department_locations.manager_id;
+_________________________________________________
+Exercício 10:
+select locations.*
+from locations
+inner join departments
+on locations.location_id = departments.location_id 
+where departments.location_id is null;
+_________________________________________________
+Exercício 11:
+select countries.*
+from countries
+inner join locations
+on countries.country_id = locations.country_id 
+where locations.country_id is null;
+_________________________________________________
+Exercício 12:
+select department_name, manager_id
+from departments
+where manager_id is null
+_________________________________________________
+Exercício 13:
+select departments.department_name,locations.street_address, locations.postal_code,
+locations.city,locations.state_province,locations.country_id
+from departments
+inner join locations
+on departments.location_id = locations.location_id;
+_________________________________________________
+Exercício 14:
+select employees.employee_id, employees.first_name,
+employees.department_id,departments.location_id,countries.country_id,
+regions.region_name
+from employees
+inner join departments
+on departments.department_id=employees.department_id
+inner join locations
+on departments.location_id=locations.location_id
+inner join countries
+on locations.country_id=countries.country_id
+inner join regions 
+on countries.region_id = regions.region_id;

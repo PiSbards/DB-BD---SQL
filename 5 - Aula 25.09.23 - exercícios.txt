@@ -1,0 +1,55 @@
+Exercício 01:
+use Sakila;
+select cidade.cidade_id,cidade from cidade where cidade.pais_id in (1,26);
+_________________________________________________________
+Exercício 02:
+use Sakila;
+select cidade.cidade_id,cidade from cidade where cidade_id>40;
+_____________________________________________
+Exercício 03:
+select loja_id,endereco_id from loja where gerente_id = 2;
+______________________________________________
+Exercício 04:
+select * from idioma where nome = 'english';
+_______________________________________________
+Exercício 05:
+select * from cliente where ultimo_nome in ('Bailey','taylor');
+_______________________________________________
+Exercício 07:
+select * from cliente where primeiro_nome = 'veronica';
+________________________________________________
+Exercício 08:
+select * from cliente where loja_id = 2;
+________________________________________________
+Exercício 09:
+select ator.primeiro_nome,ator.ultimo_nome from ator where primeiro_nome in ('Jennifer','Bette','Elvis','Scarlett');
+________________________________________________
+Exercício 10:
+select ator.primeiro_nome,ator.ultimo_nome from ator where ator_id > 180;
+____________________________________________
+Exercício 11:
+select cliente.primeiro_nome,aluguel.data_de_aluguel,aluguel.cliente_id from aluguel,cliente where aluguel.cliente_id = 269;
+_____________________________________________
+Exercício 12:
+select cliente.primeiro_nome,aluguel.data_de_aluguel,aluguel.cliente_id,funcionario.primeiro_nome from aluguel,cliente,funcionario
+where aluguel.cliente_id = 269 and aluguel.funcionario_id = 1 and aluguel.funcionario_id=funcionario.funcionario_id;
+_____________________________________________
+Exercicio 13:
+select filme.titulo, ator.primeiro_nome,ator.ator_id from filme,ator,filme_ator where filme.filme_id=filme_ator.filme_id
+and filme_ator.ator_id=ator.ator_id
+and ator.ator_id in (19,33);
+_____________________________________________
+Exercício 14:
+select pagamento.pagamento_id,pagamento.cliente_id from pagamento
+where pagamento.valor>5
+and pagamento.cliente_id=12;
+_____________________________________________
+Exercício 15:
+select pagamento.pagamento_id,funcionario.funcionario_id,funcionario.primeiro_nome
+from pagamento,funcionario
+where pagamento.funcionario_id not in (1)
+and pagamento.funcionario_id=funcionario.funcionario_id;
+_____________________________________________
+Exercício 16:
+
+

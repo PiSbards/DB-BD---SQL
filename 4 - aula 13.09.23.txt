@@ -1,0 +1,49 @@
+create database biblioteca;
+-----
+use biblioteca;
+create table assunto(
+id_assunto int not null auto_increment primary key,
+nome varchar(30)
+);
+create table aluno(
+id_aluno int not null auto_increment primary key,
+nome varchar(50),
+email varchar(50),
+fone varchar(50)
+);
+-----
+use biblioteca;
+create table livro(
+id_livro int not null auto_increment,
+titulo varchar(50),
+autor varchar(50),
+id_assunto int,
+lancamento date,
+copias int,
+primary key(id_livro),
+foreign key(id_assunto) references assunto(id_assunto)
+);
+-----
+create table emprestimo(
+id_emprestimo int not null auto_increment,
+aluno_id_aluno int,
+livro_id_livro int,
+data_emprestimo date,
+data_devolucao date,
+multa numeric(5,2),
+primary key (id_emprestimo),
+foreign key(aluno_id_aluno) references aluno(id_aluno),
+foreign key(livro_id_livro) references livro(id_livro)
+);
+_______________________________________________________________________________
+DML - Data de manipulação de dados
+SELECT - 
+
+INSERT - adiciona um ou mais registros em qualquer tabela simples;
+	sintase: INSERT INTO tabela(coluna1,coluna2,...) VALUES (valor1, valor2,...);
+
+UPDATE - atualizar os dados da tabela
+	sintase: update tabela set coluna1=valor coluna2=valor... where coluna1=valor_qualquer
+
+DELETE - deleta registro
+	sintase: DELETE FROM table WHERE valor=valor;

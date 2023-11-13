@@ -1,0 +1,14 @@
+conceito | Lógica   | Físico
+Entidade -> Tabela -> Tabela
+
+exercício slide(aula 01):
+medico - entidade
+enfermeiras - entidade
+paciente - entidade
+tratamento - entidade
+medicamento - entidade
+
+auxiliar - relacionamento
+atender - relacionamento
+receitar - relacionamento
+utilizar - relacionamento

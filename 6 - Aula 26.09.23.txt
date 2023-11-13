@@ -1,0 +1,38 @@
+LIKE - pesquisa qualquer campo onde o texto seja identico ao texto inserido.
+	SELECT colunas FROM tabela WHERE values LIKE 'valor'
+
+exemplo:SELECT cliente.primeiro_nome
+	FROM cliente
+	WHERE cliente.ultimo_nome LIKE 'Stone';
+
+	pode-se ser utilizado o simbolo % como filtro para retornar os registros que contêm o "texto"
+	SELECT cliente.primeiro_nome
+	FROM cliente
+	WHERE cliente.ultimo_nome LIKE '%to%';
+	
+	se usar somente '%ne' buscará todos os registros que TERMINAM com o texto buscado
+	se usar somente 'st%' buscará todos os registros que INICIAM com o texto buscado
+
+	também podemos utilizar o (_) como um filtro para indicar a quantidade de casas/caracteres antes ou depois do texto buscado, podendo até misturar ambos 
+	tipos de símbolo.
+
+Exercício 01:
+select categoria.nome from categoria where categoria.nome LIKE 'A%';
+___________________________________________________________
+Exercício 02:
+select categoria.nome from categoria where categoria.nome LIKE '%s';
+__________________________________________________________
+Exercício 03:
+select categoria.nome from categoria where categoria.nome LIKE 'a%' and categoria.nome LIKE'%n';
+ou
+select categoria.nome from categoria 
+where categoria.nome LIKE 'a%%n';
+___________________________________________________________
+Exercício 04:
+select cidade.cidade from cidade 
+where cidade.cidade LIKE '%mar%';
+____________________________________________
+Excercício 05:
+select ator.primeiro_nome,ator.ultimo_nome from ator 
+where ator.primeiro_nome LIKE 'e%'
+and ator.ultimo_nome LIKE 'm%';

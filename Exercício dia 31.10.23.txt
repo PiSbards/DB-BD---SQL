@@ -1,0 +1,38 @@
+Exercício 01:
+select concat(first_name," ", last_name) as nome from employees
+where job_id = (select job_id from employees where first_name ="Curtis" and last_name = "Davies");
+
+-----------------------------------------------------------
+Exercício 02:
+select d.department_name,l.* from departments d, locations l
+where d.location_id = l.location_id and d.department_id = (select department_id from employees where first_name="Curtis" and last_name="Davies");
+
+-----------------------------------------------------------
+Exercício 03:
+select first_name,last_name,hire_date
+from employees 
+where hire_date > (select MAX(hire_date)
+				from employees where department_id = 
+                (select department_id from departments where department_name='IT'));
+
+-----------------------------------------------------------
+Exercício 04:
+
+-----------------------------------------------------------
+Exercício 05:
+Select department_id,department_name
+from departments
+where department_id in (select department_id
+			from employees
+                        group by department_id
+                        having count(*)<=5);
+or
+select e.department_id,count(employee_id)
+from employees e
+group by e.department_id having count(employee_id)<=5);
+----------------------------------------------------------
+Exercício 06:
+select employee_id,first_name,last_name,salary,(select avg(salary) from employees) as salario_medio
+from employees
+where salary > (select avg(salary) from employees);
+

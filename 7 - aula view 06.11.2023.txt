@@ -1,0 +1,58 @@
+Tabela virtual, que agrupa dados para facilitar a visualização de dados
+podendo juntar diversas janelas
+
+quando as tabelas originárias são alteradas a tabela virtual também é modificada
+para isso não ocorrer, é necessário que sua sintaxe seja descrito esse bloqueio
+
+sintaxe:
+create view (nome da tabela) as 
+select (colunas que quer inserir na tabela virtual)
+from (tabelas);
+
+
+para deletar a view - drop
+replace view - atualiza a estrutura da view
+
+
+Exercícios:
+01
+create view func_dep_gerente as
+select e1.employee_id, e1.first_name as nome, d.department_name as departamento, 
+(select e2.first_name from employees e2 where e1.manager_id = e2.employee_id) as gerente
+from employees e1, departments d
+where e1.manager_id is not null
+group by e1.employee_id;
+
+-------------------------------------
+02
+create view non_func as
+select d.department_name
+from departments d
+where d.manager_id is null;
+
+-------------------------------------
+03(apresentar)
+create or replace view func_dep_gerente as
+select e1.employee_id, e1.first_name as nome, d.department_name as departamento,salary, 
+(select e2.first_name from employees e2 where e1.manager_id = e2.employee_id) as gerente
+from employees e1, departments d
+where e1.manager_id is not null
+group by e1.employee_id;
+
+-------------------------------------
+04
+create or replace view func_dep_gerente as
+select c.country_name, l.*
+from countries c, locations l;
+
+-------------------------------------
+05
+
+
+-------------------------------------
+06
+create or replace view func_dep_gerente as
+select employee_id,first_name,last_name,salary,(select avg(salary) from employees) as salario_medio
+from employees
+where salary > (select avg(salary) from employees);
+

@@ -1,0 +1,53 @@
+Exercício 01:
+use biblioteca;
+alter table assunto add column data_registro timestamp default current_timestamp;
+
+_______________________________________
+Exercício 02:
+use biblioteca;
+alter table livro add column isbn varchar(10) not null;
+
+_______________________________________
+Exercício 03:
+use biblioteca;
+alter table livro add column valor_compra numeric(6,2) not null;
+
+_______________________________________
+Exercício 04:
+use biblioteca;
+alter table livro change valor_compra valor_pago numeric(6,2) not null;
+
+_______________________________________
+Exercício 05:
+use biblioteca;
+alter table emprestimo add column nome_funcionario varchar(50) not null;
+
+_______________________________________
+Exercício 06:
+use biblioteca;
+alter table emprestimo add column numero_copia int not null;
+
+_______________________________________
+Exercício 07:
+use biblioteca;
+alter table aluno modify column email varchar(30);
+
+_______________________________________
+Exercício 08:
+use biblioteca
+alter table aluno modify column nome varchar(60);
+
+_______________________________________
+Exercício 09:
+use biblioteca;
+alter table aluno add column celular varchar(50);
+
+_______________________________________
+Exercício 10:
+use biblioteca;
+alter table livro drop column id_livro; // da erro
+
+_______________________________________
+Exercício 11:
+use biblioteca;
+rename table assunto to tipo_livro;

@@ -1,0 +1,92 @@
+DDL - Definição de dados
+
+CREATE - Comando de criação
+
+ALTER - modifica a estrutura
+	ADD column- adiciona uma coluna
+	DROP column- deleta a coluna
+	MODIFY column - modifica a estrutura, alterar tipagem de dados
+	CHANGE - modifica o nome da coluna
+
+RENAME - renomeia a tabela	
+
+DROP - deleta a estrutura
+
+______________________________________________________________
+SQL CODIGOS:
+use tds10;/*USAR O DB ESPECÍFICO OU APERTAR DUAS VEZES NO DB NA LATERAL*/
+create table Cliente
+(Codigo INT NOT NULL auto_increment,
+Nome varchar(60) NOT NULL,
+Data_nascimento date,
+Telefone char(8),
+primary key(Codigo) 
+);
+----------------
+describe cliente; /*DESCREVER TABELA(NOME DA TABLE*/
+----------------
+
+Create Table Aluno(
+codigo int not null auto_increment,
+nome varchar(60) not null,
+Telefone char(8),
+email varchar(60) not null,
+primary key(codigo)
+);
+-----------------
+show tables /*Mostra todas as tabelas*/
+-----------------
+create table matricula(
+idMatricula int not null primary key,
+numero_matricula int,
+fk_aluno int,
+foreign key(fk_aluno)
+references aluno(codigo)
+);
+------------------
+alter table matricula
+add column data_matricula timestamp;
+------------------
+alter table aluno
+modify column Telefone varchar(50);
+------------------
+alter table aluno
+change Telefone telefone varchar(50);
+     (nome velho) (nome novo)
+------------------
+rename table aluno
+to estudante;
+
+________________________________
+Exercício:(traçado é outro script)
+create schema escola;
+---
+use escola;
+
+create table Aluno(
+ID_aluno int not null auto_increment primary key,
+nome varchar(50),
+telefone varchar(50)
+);
+
+create table Professor(
+ID_professor int not null auto_increment primary key,
+nome varchar(50),
+telefone varchar(50)
+);
+
+create table curso(
+ID_curso int not null auto_increment primary key,
+nome varchar(50),
+periodo varchar(50)
+);
+
+---
+
+create table matricula(
+ID_matricula int not null auto_increment primary key,
+fk_aluno int,
+fk_curso int,
+foreign key(fk_aluno) references aluno(ID_aluno),
+foreign key(fk_curso) references curso(ID_curso)
+);

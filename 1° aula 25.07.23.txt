@@ -1,0 +1,21 @@
+Banco de dados, entidade na qual é possivel armazenar dados de maneira estruturada e com a menor redundância possivel.
+estes dados devem ser utilizados por programas, usuários;
+
+dado:
+	valor ou ocorrência em estado bruto;
+
+informação:
+	conjunto organizado de dados, que constitui uma mensagem sobre um determinado fenómeno ou evento;
+	local de trabalho, profissão, endereço de cobrança/
+
+Entidade:
+	Conjunto sobre o qual se deseja mantar informações de dados
+	tudo que for do mundo real e que tem caracteristicas próprias e que deseja salvar estes dados;
+
+
+
+		               BD
+requisitos | Modelagem conceito | Modelagem Lógica | Construção Física
+
+Sistema gerenciador de Bando de Dados:
+	

@@ -1,0 +1,108 @@
+usando minha tabela antiga*
+1 - Exercício:
+select * from livraria.autor,livraria.editora,livraria.livro;
+---------------------------------------------
+2 - Exercício:
+select livro.nome,editora.nome from livraria.livro,livraria.editora where livro.editora_id_editora=editora.id_editora;
+
+---------------------------------------------
+3 - Exercício:
+select livro.nome,editora.uf from livraria.livro,livraria.editora,livraria.autor where livro.editora_id_editora=editora.id_editora
+and autor.sexo="Masculino" and livro.autor_id_autor=autor.id_autor;
+
+---------------------------------------------
+4 - Exercício:
+select livro.nome,livro.num_paginas from livraria.livro,livraria.autor where autor.sexo="Feminino" 
+and livro.autor_id_autor=autor.id_autor;
+
+---------------------------------------------
+5 - Exercício:
+select livro.valor,editora.uf from livraria.livro,livraria.editora where livro.editora_id_editora=editora.id_editora
+and editora.uf="SP";
+
+---------------------------------------------
+6 - Exercício:
+select autor.nome,autor.sexo,editora.uf from livraria.autor,livraria.editora,livraria.livro where livro.editora_id_editora=editora.id_editora
+and livro.autor_id_autor=autor.id_autor and autor.sexo="Masculino" and editora.uf="SP" 
+or livro.editora_id_editora=editora.id_editora and livro.autor_id_autor=autor.id_autor and autor.sexo="Masculino" and editora.uf="RJ";
+
+___________________________________________________________________________________________
+Usando tabela criada em sala*
+CRIAÇÃO BASE DE DADOS
+	CREATE DATABASE LIVRARIA;
+
+CRIAÇÃO TABELA LIVROS
+	CREATE TABLE LIVROS(
+	IDLIVRO INT PRIMARY KEY AUTO_INCREMENT,
+    	NOME_LIVRO VARCHAR(30) NOT NULL,
+    	NOME_AUTO VARCHAR(30) NOT NULL,
+    	SEXO_AUTOR VARCHAR(10) NOT NULL,
+    	NUMERO_PAGINA INT NOT NULL,
+    	NOME_EDITORA VARCHAR(30) NOT NULL,
+   	VALOR_LIVRO FLOAT(10,2) NOT NULL,
+    	ESTADO_EDITORA VARCHAR(30) NOT NULL,
+    	ANO_PUBLICACAO INT(4),
+    	QTD_ESTOQUE INT
+);
+
+CRIAÇÃO TABELA CLIENTES
+	CREATE TABLE CLIENTES(
+	IDCLIENTE 	INT PRIMARY KEY AUTO_INCREMENT,
+    	NOME 		VARCHAR(50) NOT NULL,
+   	CPF 		VARCHAR(15) NOT NULL,
+    	ENDERECO 	VARCHAR(100),
+    	CIDADE 		VARCHAR(50),
+    	SEXO 		VARCHAR(10) NOT NULL,
+    	IDADE 		INT,
+    	TELEFONE 	VARCHAR(15) NOT NULL    
+);
+
+CRIAÇÃO TABELA VENDAS
+	CREATE TABLE VENDAS(
+	IDVENDA		INT PRIMARY KEY AUTO_INCREMENT,
+    	VALOR_TOTAL FLOAT(10,2),
+    	FORMA_PAGTO VARCHAR(30),
+   	ID_CLIENTE	INT,
+    	ID_LIVROS	INT,
+
+    	FOREIGN KEY (ID_CLIENTE)
+    	REFERENCES CLIENTES(IDCLIENTE),
+	FOREIGN KEY (ID_LIVROS)
+    	REFERENCES LIVROS(IDLIVRO)
+);
+
+
+
+INSERT INTO LIVROS VALUES(NULL,'Cavaleiro Real','Ana Claudia','F',465,'Atlas',49.9,'RJ',2009, 10);
+INSERT INTO LIVROS VALUES(NULL,'SQL para leigos','João Nunes','M',450,'Addison',98,'SP',2018, 3);
+INSERT INTO LIVROS VALUES(NULL,'Receitas Caseiras','Celia Tavares','F',210,'Atlas',45,'RJ',2008, 8);
+INSERT INTO LIVROS VALUES(NULL,'Pessoas Efetivas','Eduardo Santos','M',390,'Beta',78,'RJ',2018, 12);
+INSERT INTO LIVROS VALUES(NULL,'Habitos Saudáveis','Eduardo Santos','M',630,'Beta',150,'RJ',2019, 8);
+INSERT INTO LIVROS VALUES(NULL,'A Casa Marrom','Hermes Macedo','M',250,'Bubba',60,'MG',2016, 25);
+INSERT INTO LIVROS VALUES(NULL,'Estacio Querido','Geraldo Francisco','M',310,'Insignia',100,'ES',2015, 15);
+INSERT INTO LIVROS VALUES(NULL,'Pra sempre amigas','Leda Silva','F',510,'Insignia',78,'ES',2011, 10);
+INSERT INTO LIVROS VALUES(NULL,'Copas Inesqueciveis','Marco Alcantara','M',200,'Larson',130,'RS',2018, 5);
+INSERT INTO LIVROS VALUES(NULL,'O poder da mente','Clara Mafra','F',120,'Continental',56,'SP',2017, 7);
+
+1 - Exercício:
+select*from livro;
+
+-------------------------
+2 - Exercício:
+select nome_livro,nome_editora from livro;
+
+-------------------------
+3 - Exercício:
+select nome_livro,uf_editora from livro where sexo_autor="M";
+
+-------------------------
+4 - Exercício:
+select nome_livro,num_paginas from livro where sexo_autor="F";
+
+-------------------------
+5 - Exercício:
+select nome_livro,valor_livro,uf_editora from livro where uf_editora="SP";
+
+-------------------------
+6 - Exercício:
+select nome_autor,sexo_autor from livro where sexo_autor="M" and uf_editora="SP" or sexo_autor="M" and uf_editora="RJ";
