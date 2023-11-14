@@ -41,18 +41,63 @@ group by e1.employee_id;
 
 -------------------------------------
 04
-create or replace view func_dep_gerente as
-select c.country_name, l.*
-from countries c, locations l;
+create or replace view atv_4 as
+select c.country_id,c.country_name, l.street_address,l.postal_code,l.city,l.state_province
+from countries c, locations l
+where c.country_id = l.country_id;
 
 -------------------------------------
 05
-
+create or replace view atv_5 as
+select concat(e.first_name,' ',e.last_name) as funcionario,l.street_address,l.country_id,l.postal_code,l.city,l.state_province
+from employees e,departments d, locations l
+where e.department_id = d.department_id
+and d.location_id = l.location_id;
 
 -------------------------------------
 06
-create or replace view func_dep_gerente as
-select employee_id,first_name,last_name,salary,(select avg(salary) from employees) as salario_medio
+create or replace view atv_6 as
+select employee_id,concat(first_name,' ',last_name) as funcionario,salary,(select avg(salary) from employees) as salario_medio
 from employees
-where salary > (select avg(salary) from employees);
+where salary > (select avg(salary) from employees)
+group by employee_id;
 
+-------------------------------------
+07
+create or replace view atv_7 as
+select (select sum(e1.salary) from employees e1) as total_salario,
+count(e2.employee_id) as total_func_departamento,
+avg(e2.salary) as média_salarial,
+d.department_name
+from employees e2, departments d
+where e2.department_id = d.department_id
+group by d.department_name;
+
+-------------------------------------
+08
+create or replace view atv_8 as
+select j1.job_title, j1.job_id
+from jobs j1
+where j1.job_id not in
+(select j2.job_id
+from jobs j2
+inner join job_history jh
+on j2.job_id = jh.job_id);
+
+------------------------------------
+09
+create or replace view atv_9 as
+select count(e.employee_id) as qtd_funcionario, c.country_name,l.country_id
+from employees e,departments d,locations l,countries c
+where e.department_id=d.department_id
+and d.location_id = l.location_id
+and l.country_id=c.country_id
+group by c.country_name;
+
+-----------------------------------
+10
+create or replace view atv_10 as
+select j.job_title, count(e.employee_id) as qtd_funcionarios,avg(e.salary) as media_salario
+from employees e, jobs j
+where e.job_id = j.job_id
+group by j.job_id;
