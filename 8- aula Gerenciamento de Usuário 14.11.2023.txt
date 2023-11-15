@@ -1,0 +1,96 @@
+Divisão de autoridade sobre o DB;
+
+USUÁRIO ROOT = não pode ser utilizado no dia a dia.
+
+local host = mesma rede;
+global host = redes diferentes;
+
+
+		      'localhost'
+CREATE USER 'Pietro'@'globalhost'
+IDENTIFIED BY 'senha';
+
+
+GRANT ALL PRIVILEGES ON *.* TO   = Garantir privilégios
+'novousuario'@'localhost';
+
+REVOKE all ON *.* from  = Retirar privilégios
+'Pietro'@'globalhost';
+
+drop user'Pietro'@'localhost'; = deletar usuário
+
+
+*.* = privilégio global
+
+db.* = qualquer tabela do banco
+
+db.tb = apenas a tabela expecifica do db expecifico
+
+flush privilege = atualiza os privilegios do usuário
+
+
+
+----------------------------------------------------------------------------
+Exercício:
+01
+create user 'pietro'@'localhost'
+IDENTIFIED BY 'mudar123';
+
+________________
+02:
+*conectar com o usuário que foi criado"
+
+________________
+03:
+grant all privileges on *.* to
+'pietro'@'localhost';
+
+_______________
+04:
+REVOKE all ON *.* from
+'pietro'@'localhost';
+
+______________
+05:
+set password for 'pietro'@'localhost'
+= password('mudar456');
+
+______________
+06:
+grant select (Name, countryCode) on world.city
+to 'pietro'@'localhost';
+
+______________
+07:
+Error Code: 1142. DELETE command denied to user 'pietro'@'localhost' for table `world`.`city`
+
+______________
+08:
+grant update on world.city to
+'pietro'@'localhost';
+
+______________
+09:
+grant insert, delete, update, select on world.country to
+'pietro'@'localhost';
+
+______________
+10:
+revoke insert, delete, update, select on world.city from
+'pietro'@'localhost';
+
+_____________
+11:
+grant insert, delete, update, select on world.city to
+'pietro'@'localhost';
+
+____________
+12:
+grant insert, delete, update, select on world.* to
+'pietro'@'localhost';
+
+___________
+13:
+drop user 'pietro'@'localhost';
+
+
