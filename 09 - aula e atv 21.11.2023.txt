@@ -1,4 +1,5 @@
-LOAD
+LOAD - carregar arquivos externos, maior exemplo arquivos csv(excel dividido por virgulas)
+em uma tabela.
 
 
 Create table sorteios (
