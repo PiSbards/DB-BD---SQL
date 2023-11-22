@@ -1,0 +1,205 @@
+Exercício 01:
+Arquivo PDF e sql separados
+
+-------------------------------------------------
+Exercício 02:
+alter table participante change endereco logradouro varchar(60);
+
+-------------------------------------------------
+Exercício 03:
+INSERT INTO categoria (descricao) VALUES ("CONgresso");
+INSERT INTO categoria (descricao) VALUES ("Simpósio");
+INSERT INTO categoria (descricao) VALUES ("Feira");
+INSERT INTO categoria (descricao) VALUES ("Semana Acadêmica");
+INSERT INTO categoria (descricao) VALUES ("EncONtro");
+INSERT INTO evento (nome_evento,local_evento,data_evento,email_evento,codigo_categoria) VALUES ("Semana de TI", "Senai", 2017/09/13, "semanati@evento.br",4);
+
+INSERT INTO evento (nome_evento,local_evento,data_evento,email_evento,codigo_categoria) 
+VALUES ("Simpósio de Eletrônica", "Senai", '2017-07-20', "EletrONica@teste.com.br",2);
+
+INSERT INTO evento (nome_evento,local_evento,data_evento,email_evento,codigo_categoria) 
+VALUES ("Semana Acadêmica", "Faculdade Albert Einstein", '2017-05-31', "albert@einstein.com.br",4);
+
+INSERT INTO evento (nome_evento,local_evento,data_evento,email_evento,codigo_categoria) 
+VALUES ("Feira Metal Mecânica", "Parque de Exposição", '2017-09-01', "metal@mecanica.com.br",3);
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (1,80);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (1,98);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (2,30);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (2,40);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (3,150);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (3,180);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (4,90);
+
+INSERT INTO tipo_inscricao (codigo_evento,valor_tipo) VALUES (4,140);
+
+------------------------------------------------
+Exercício 04:
+INSERT INTO participante (nome_participante, logradouro, numero, bairro, cidade, estado, email) VALUES ('João Silva', 'Rua Alegria', '123', 'Centro', 'São Paulo', 'SP', 'joao.silva@example.com'),
+('Maria Santos', 'Avenida Paz', '456', 'Vila Feliz', 'Rio de Janeiro', 'RJ', 'maria.santos@example.com'),
+('Pedro Souza', 'Travessa Amizade', '789', 'Bairro Novo', 'Belo HorizONte', 'MG', 'pedro.souza@example.com'),
+('Ana Pereira', 'Alameda Esperança', '101', 'Cidade Alta', 'Porto Alegre', 'RS', 'ana.pereira@example.com'),
+('Lucas Ferreira', 'Rua HarmONia', '112', 'Bairro Sol', 'Curitiba', 'PR', 'lucas.ferreira@example.com'),
+('Mariana Costa', 'Avenida Felicidade', '131', 'Cidade Nova', 'Salvador', 'BA', 'mariana.costa@example.com'),
+('Felipe Santos', 'Rua União', '142', 'Cidade Baixa', 'Florianópolis', 'SC', 'felipe.santos@example.com'),
+('Carla Oliveira', 'Travessa União', '155', 'Bairro Sul', 'Fortaleza', 'CE', 'carla.oliveira@example.com'),
+('Rafael Rodrigues', 'Avenida Esperança', '167', 'Vila Bela', 'Recife', 'PE', 'rafael.rodrigues@example.com'),
+('Isabel Almeida', 'Rua HarmONia', '180', 'Centro', 'Belém', 'PA', 'isabel.almeida@example.com');
+
+INSERT INTO participante_inscricao (codigo_participante,codigo_tipo,situacao, data_inscricao)
+VALUES
+    (1,5,'ABERTO', '2023-05-30'),
+    (2,2,'PAGO', '2017-06-29'),
+    (3,6,'ABERTO', '2023-03-28'),
+    (4,3,'CANCELADO', '2017-02-27'),
+    (5,1,'PAGO', '2017-01-26'),
+    (6,5,'ABERTO', '2023-04-25'),
+    (7,5,'CANCELADO', '2023-03-24'),
+    (8,6,'ABERTO', '2023-05-23'),
+    (9,4,'PAGO', '2017-04-22'),
+    (10,6,'CANCELADO', '2023-03-21');
+
+-------------------------------------------------
+Exercício 05:
+INSERT INTO evento (nome_evento,local_evento,data_evento,email_evento,codigo_categoria) VALUES
+("Simpósio de Filosofia","Unicesumar","2023-10-17","simposiofilosofia@cesu.br",2),
+("CONgresso de Direito","UEM","2023-09-14","cONgressodtouem@uem.org.br",1);
+
+--------------------------------------------------
+Exercício 06:
+SELECT p.nome_participante,p.logradouro,p.numero,p.bairro,p.cidade,p.estado,p.email,e.nome_evento
+FROM participante as p
+INNER JOIN participante_inscricao as p_insc
+ON p_insc.codigo_participante = p.codigo_participante
+INNER JOIN tipo_inscricao as tp_insc
+ON tp_insc.codigo_tipo = p_insc.codigo_tipo
+INNER JOIN evento as e
+ON e.codigo_evento = tp_insc.codigo_evento;
+
+--------------------------------------------------
+Exercício 07:
+SELECT e.nome_evento, e.local_evento, e.data_evento, c.descricao
+FROM evento as e
+INNER JOIN categoria as c
+ON e.codigo_categoria = c.codigo_categoria;
+
+--------------------------------------------------
+Exercício 08:
+SELECT c.descricao
+FROM categoria as c
+LEFT JOIN evento as e
+ON c.codigo_categoria = e.codigo_categoria
+WHERE e.codigo_categoria is null;
+
+--------------------------------------------------
+Exercício 09:(CONfererir)
+SELECT c.descricao,e.nome_evento
+FROM categoria as c
+INNER JOIN evento as e
+ON c.codigo_categoria = e.codigo_categoria
+WHERE e.descricao = "EncONtro";
+
+---------------------------------------------------
+Exercício 10:
+SELECT p.*,p_insc.situacao,e.nome_evento
+FROM participante as p
+INNER JOIN participante_inscricao as p_insc
+ON p_insc.codigo_participante = p.codigo_participante
+INNER JOIN tipo_inscricao as tp_insc
+ON p_insc.codigo_tipo = tp_insc.codigo_tipo
+INNER JOIN evento as e
+ON tp_insc.codigo_evento = e.codigo_evento
+WHERE e.nome_evento = "Semana de TI";
+
+---------------------------------------------------
+Exercício 11:
+SELECT p.*,p_insc.situacao,e.nome_evento
+FROM participante as p
+INNER JOIN participante_inscricao as p_insc
+ON p_insc.codigo_participante = p.codigo_participante
+INNER JOIN tipo_inscricao as tp_insc
+ON p_insc.codigo_tipo = tp_insc.codigo_tipo
+INNER JOIN evento as e
+ON tp_insc.codigo_evento = e.codigo_evento
+WHERE p_insc.situacao != "CANCELADO";
+
+---------------------------------------------------
+Exercício 12:
+SELECT sum(valor_tipo)
+FROM tipo_inscricao;
+
+---------------------------------------------------
+Exercício 13:(corrigir, usar o subSELECT)
+SELECT count(codigo_participante)
+FROM participante_inscricao as p_insc
+INNER JOIN tipo_inscricao as t_insc
+ON p_insc.codigo_tipo = t_insc.codigo_tipo
+INNER JOIN evento as e
+ON t_insc.codigo_evento = e.codigo_evento
+GROUP BY e.codigo_categoria;
+
+--------------------------------------------------
+Exercício 14:
+SELECT e1.*
+FROM evento e1
+WHERE data_evento = (SELECT MAX(e2.data_evento) FROM evento e2)
+   and data_evento = (SELECT MIN(e3.data_evento) FROM evento e3);
+
+--------------------------------------------------
+Exercício 15:
+SELECT p.nome_participante, ti.valor_tipo
+FROM participante p
+JOIN participante_inscricao pi
+ON p.codigo_participante = pi.codigo_participante
+JOIN tipo_inscricao ti
+ON pi.codigo_tipo = ti.codigo_tipo;
+
+--------------------------------------------------
+Exercício 16:
+SELECT situacao, COUNT(*) as total_inscricoes
+FROM participante_inscricao
+GROUP BY situacao;
+
+--------------------------------------------------
+Exercício 17:
+SELECT c.descricao, COUNT(*) as quantidade_eventos
+FROM evento e
+JOIN categoria
+ON e.codigo_categoria = c.codigo_categoria
+GROUP BY c.descricao;
+
+--------------------------------------------------
+Exercício 18:
+SELECT e.*
+FROM evento e
+LEFT JOIN participante_inscricao pi
+ON e.codigo_evento = pi.codigo_evento
+WHERE pi.codigo_participante is null;
+
+--------------------------------------------------
+Exercício 19:
+SELECT p.*
+FROM participante p
+LEFT ON participante_inscricao pi
+ON p.codigo_participante = pi.codigo_participante
+WHERE pi.codigo_participante is null;
+
+--------------------------------------------------
+Exercício 20:
+SELECT p.nome_participante, p.email
+FROM participante p
+INNER JOIN participante_inscricao pi
+ON p.codigo_participante = pi.codigo_participante
+WHERE pi.situacao = "PAGO";
+
+--------------------------------------------------
+Exercício 21:
+ALTER TABLE participante_inscricao
+CHANGE COLUMN situacao status VARCHAR(10);
+
+--------------------------------------------------

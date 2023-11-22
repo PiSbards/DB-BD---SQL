@@ -17,6 +17,10 @@ GRANT ALL PRIVILEGES ON *.* TO   = Garantir privilégios
 REVOKE all ON *.* from  = Retirar privilégios
 'Pietro'@'globalhost';
 
+ALTER - altera os privilégios
+
+REVOKE - retira os privilégios
+
 drop user'Pietro'@'localhost'; = deletar usuário
 
 

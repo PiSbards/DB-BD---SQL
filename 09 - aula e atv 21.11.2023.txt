@@ -1,0 +1,71 @@
+LOAD
+
+
+Create table sorteios (
+concurso int(10),
+data_sorteio date,
+primeiro int(11),
+segundo int(11),
+terceiro int(11),
+quarto int(11),
+quinto int(11),
+sexto int(11));
+
+-------------------------
+
+load data infile 'C:/Users/Aluno/Desktop/load/megasena.csv' INTO TABLE sorteios
+fields terminated by ';'
+lines terminated by '\n'
+IGNORE 1 LINES;
+
+------------------------
+
+select concurso,primeiro,segundo,terceiro,quarto,quinto,sexto from sorteios where concurso=1;
+
+------------------------
+select concurso, data_sorteio from sorteios where concurso=90;
+
+------------------------
+select concurso,primeiro,segundo,terceiro,quarto,quinto,sexto from sorteios where data_sorteio = '2000-12-30';
+
+------------------------
+select concurso,primeiro,segundo,terceiro,quarto,quinto,sexto from sorteios where data_sorteio = '2014-03-01';
+
+------------------------
+select concurso,primeiro,segundo,terceiro,quarto,quinto,sexto from sorteios where primeiro='10' and segundo='20';
+
+------------------------
+select concurso,data_sorteio from sorteios where primeiro='27' and segundo='20'
+and terceiro = '48' and quarto = '16' and quinto = '30' and sexto = '35';
+
+------------------------
+select concurso,data_sorteio from sorteios where primeiro='27' and segundo='20'
+and terceiro = '50' and quarto = '15' and quinto = '14' and sexto = '11';
+
+------------------------
+select concurso,data_sorteio from sorteios where primeiro = '27' and concurso>1500;
+
+------------------------
+select concurso,data_sorteio from sorteios where primeiro = '10' and segundo <10;
+
+------------------------
+select count(sexto) from sorteios where sexto = '1';
+
+-----------------------
+select count(quinto) from sorteios where quinto = '1';
+
+-----------------------
+select (SELECT count(concurso) from sorteios where primeiro = 16) as primeiro,
+(SELECT count(concurso) from sorteios where segundo = 16) as segundo,
+(SELECT count(concurso) from sorteios where terceiro = 16) as terceiro,
+(SELECT count(concurso) from sorteios where quarto = 16) as quarto,
+(SELECT count(concurso) from sorteios where quinto = 16) as quinto,
+(SELECT count(concurso) from sorteios where sexto = 16) as sexto;
+
+-----------------------
+select concurso from sorteios where primeiro = 10 or primeiro = 60;
+
+----------------------
+SELECT primeiro, COUNT(primeiro) FROM sorteios group by primeiro;
+
+mostra qual numero a primeira dezena foi em cada linha e conta a quantidade de vezes que essa primeira dezena aparece
