@@ -1,0 +1,104 @@
+TRIGGERs
+
+- são objetos do BD que relaciona a certa tabela, permitem a realização de processamentos em consequência de uma determinada ação como, por exemplo,
+a inserção de um registro;
+
+- podem ser executados antes ou depois das operações de INSERT, UPDATE, DELETE de registros(somente estes três comandos);
+
+- São procedimentos automatizados que ocorrem assim que ocorre a querry selecionada;
+
+- facilita a manutenção, sem que seja necessário a manipulação do BD;
+
+- CREATE TRIGGER nome momento(BEFORE/AFTER) evento(UPDATE/INSERT/DELETE - LOAD/DATA/REPLACE)
+  ON tabela
+  FOR EACH ROW
+  BEGIN
+  /*corpo do código*/
+  END
+
+
+Exercício 01:
+
+delimiter $
+CREATE TRIGGER attPopulation AFTER UPDATE
+ON  city
+FOR EACH ROW
+BEGIN
+	DECLARE populacao int;    
+	SELECT sum(Population) into populacao from city where CountryCode = new.CountryCode;
+    
+    update country set Population = populacao where code = new.CountryCode;
+
+END$
+
+-------------------------
+Exercício 02:
+
+create table MediaContinente(
+id int primary key not null auto_increment,
+Continent varchar(50),
+mediaPopulacional double);
+
+delimiter $
+CREATE TRIGGER avgContinente AFTER UPDATE
+ON  country
+FOR EACH ROW
+BEGIN
+	declare media double;
+    Select avg(Population) into media from Country where continet = new.continent;
+    
+	if exists
+		(select * from MediaContinente where continent = new.continent) then
+        Update mediaContinente
+		set mediaPopulacional = media
+		where continent = new.continent;
+	else
+		insert into mediacontinente(continent,mediapopulacional)
+        values(new.continent,media);
+    
+	end if;
+END$
+
+------------------------
+Exercício 03:
+create table LinguagemDeletadas(
+countrycode char(3),
+Language VARchar(30),
+IsOfficial ENUM('T','F'),
+Percentage float,
+datadelete timestamp,
+Deletadopor varchar(50)
+);
+
+delimiter $
+create trigger deletadolinguagem before delete
+on countrylanguage
+for each row
+begin
+	insert into linguagemDeletadas(countrycode,language,isofficial,percentage,datadelete,deletadopor)
+	Values(old.Countrycode,old.language,old.isofficial,old.percentage, now(), current_user());
+
+end$
+
+------------------------
+Exercício 04:
+delimiter $
+create trigger seguranca before delete
+on country
+for each row
+begin
+	declare city_count int;
+    declare language_count int;
+	select count(*) into city_count from city where countrycode = old.CountryCode;
+    
+    if city_count > 0 then
+		signal sqlstate '45000' set message_text = 'Não é Possivel deletar pois há cidade';
+	end if;
+    
+    select count(*)  into language_Count from countrylanguage where countrycode = old.CountryCode;
+    
+    if language_count>0 then
+		signal sqlstate '45000' set message_text = 'Não é Possivel deletar pois há linguagem';
+	end if;
+    
+end$
