@@ -1,0 +1,152 @@
+Automatização de repetições
+
+obrigatório a utilização do return, pois a função tem um retorno;
+
+sempre são chamadas atraves de um SELECT
+
+EXEMPLO 1:
+
+Delimiter $
+create function palavra(texto char(20)) returns char(50)
+return concat('Você digitou: ', texto);
+end$
+
+select palavra('oi');
+-------------------------
+Exemplo 2:
+delimiter $
+create function media(nome varchar(10))
+returns float 
+deterministic
+begin
+	declare n1,n2,n3,n4 int;
+    declare med float;
+    Select nota1,nota2,nota3,nota4 into n1,n2,n3,n4 from notas where aluno = nome;
+    set med = (n1+n2+n3+n4)/4;
+    return med;
+end$
+
+select media('Pedro');
+------------------------
+
+para apagar - DROP FUNCTION função;
+
+
+
+------------------------
+Exercício 1:
+delimiter $
+create function MaiorSalario(funcao Varchar(10))
+returns Decimal(8,2) 
+deterministic
+begin
+	declare Salario decimal(8,2);
+    Select max(salary) into Salario from employees where job_id = funcao; 
+    return salario;
+end$
+
+select MaiorSalario('ST_CLERK');
+
+------------------------
+Exercício 02:
+delimiter $
+create function MediaSalario(funcao Varchar(10))
+returns Decimal(8,2) 
+deterministic
+begin
+	declare med decimal(8,2);
+    Select avg(salary) into med from employees where job_id = funcao; 
+    return med;
+end$
+
+select MediaSalario('ST_CLERK');
+
+------------------------
+Exercício 03:
+delimiter $
+create function qtdFunc(gerente int)
+returns int 
+deterministic
+begin
+	declare func int;
+    Select count(employee_id) into func from employees where manager_id = gerente; 
+    return func;
+end$
+
+select qtdFunc(100);
+
+------------------------
+Exercício 04:
+delimiter $
+create function qtdDepartamento(departamento int)
+returns int 
+deterministic
+begin
+	declare func int;
+    Select count(employee_id) into func from employees where department_id = departamento;
+    return func;
+end$
+
+select qtdDepartamento(100);
+
+------------------------
+Exercício 05:
+delimiter $
+create function somaDepartamento(departamento int)
+returns decimal 
+deterministic
+begin
+	declare soma decimal(8,2);
+    Select sum(salary) into soma from employees where department_id = departamento; 
+    return soma;
+end$
+
+select somaDepartamento(100);
+
+------------------------
+Exercício 06:
+delimiter $
+create function SalarioDezDepartamento(departamento int)
+returns decimal 
+deterministic
+begin
+	declare salario decimal(8,2);    
+    Select max(salary)*1.1 into salario from employees where department_id = departamento;    
+    return resultado;
+end$
+
+select SalarioDezDepartamento(90);
+
+-------------------------
+Exercício 07:
+delimiter $
+create function MediaDepartamento(departamento int)
+returns decimal 
+deterministic
+begin
+	declare salario decimal(8,2);    
+    Select avg(salary) into salario from employees where department_id = departamento;    
+    return salario;
+end$
+
+select MediaDepartamento(90);
+
+---------------------------
+Exercício 08:
+delimiter $
+create function ultimoJob()
+returns varchar(10)
+deterministic
+begin
+	declare ultimo varchar(10);
+    select job_id from employees ORDER BY job_id DESC limit by 1;
+    return ultimo;
+
+ou 
+declare ultimo varchar(10);
+    select max(job_id) into ultimo from employees;
+    return ultimo;
+end$
+
+select ultimoJob();
+----------------------------
